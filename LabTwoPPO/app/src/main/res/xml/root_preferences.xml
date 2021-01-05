@@ -1,0 +1,48 @@
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="@string/theme">
+
+        <SwitchPreferenceCompat
+            app:title="@string/night"
+            app:key="night"
+            app:defaultValue="false"
+            app:summaryOn="@string/nightOn"
+            app:summaryOff="@string/nightOff"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/text">
+
+        <SeekBarPreference
+            app:title="@string/fontSize"
+            app:key="fontSize"
+            app:defaultValue="18"
+            app:min="12"
+            android:max="24"
+            />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="@string/deleteAll">
+        <Preference
+            app:title="@string/delete"
+            app:key="deleteAll"
+            app:defaultValue="false"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/language">
+
+        <SwitchPreferenceCompat
+            app:title="@string/language"
+            app:key="language"
+            app:defaultValue="true"
+            app:summaryOn="Ru"
+            app:summaryOff="Eng"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

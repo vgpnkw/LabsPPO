@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+    android:id="@+id/linearLayoutTimer"
+        tools:context=".ItemFragment"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+        android:padding="2dp"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarTimerList"
+        style="@style/Toolbar"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/seqNameInTimerListTextView"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="30sp"
+            style="@style/seqTextView"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnStart"
+            style="@style/buttonToTimer"
+            android:text="@string/start" />
+
+        <Button
+            android:id="@+id/btnPause"
+            style="@style/buttonToTimer"
+            android:text="@string/pause" />
+
+        <Button
+            android:id="@+id/btnStop"
+            style="@style/buttonToTimer"
+            android:text="@string/stop" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/timerTextView"
+        style="@style/timerTextView"
+        />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listTimer"
+            android:name="com.example.tabatatimer.TimerFragment"
+            style="@style/recyclerView"
+            android:layout_height="216dp"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".TimerFragment"
+            tools:listitem="@layout/fragment_timer" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPrev"
+                style="@style/buttonToTimer"
+                android:text="@string/prev" />
+
+            <Button
+                android:id="@+id/btnNext"
+                style="@style/buttonToTimer"
+                android:text="@string/next" />
+
+        </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

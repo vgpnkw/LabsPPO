@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/itemFragment">
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.example.labtwoppo.ItemFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list" >
+        <action
+            android:id="@+id/action_itemFragment_to_sequenceFragment"
+            app:destination="@id/sequenceFragment" />
+        <action
+            android:id="@+id/action_itemFragment_to_editSeqFragment"
+            app:destination="@id/editSeqFragment" />
+        <action
+            android:id="@+id/action_itemFragment_to_timerFragment"
+            app:destination="@id/timerFragment" />
+        <action
+            android:id="@+id/action_itemFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sequenceFragment"
+        android:name="com.example.labtwoppo.SequenceFragment"
+        android:label="fragment_sequence"
+        tools:layout="@layout/fragment_sequence" >
+        <action
+            android:id="@+id/action_sequenceFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSeqFragment"
+        android:name="com.example.labtwoppo.TimerEditFragment"
+        android:label="fragment_edit_seq"
+        tools:layout="@layout/fragment_timer_edit" >
+        <action
+            android:id="@+id/action_editSeqFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.example.labtwoppo.TimerFragment"
+        android:label="fragment_timer_list"
+        tools:layout="@layout/fragment_timer_list" >
+        <action
+            android:id="@+id/action_timerFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.labtwoppo.SettingsFragment"
+        android:label="SettingsFragment" />
+</navigation>

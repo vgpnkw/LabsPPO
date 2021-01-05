@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ScrollViewCount,UselessParent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".SequenceFragment">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarSeq"
+        style="@style/Toolbar"
+        tools:ignore="MissingConstraints" >
+
+        <Button
+            android:id="@+id/btnBackFromSeqToList"
+            style="@style/toolbarButtonStyle"
+            android:layout_gravity="start|center_vertical"
+            android:drawableStart="@android:drawable/ic_menu_revert"
+            android:drawableLeft="@android:drawable/ic_menu_revert" />
+
+        <Button
+            android:id="@+id/btnSaveNewSeq"
+            style="@style/toolbarButtonStyle"
+            android:text="@string/save" />
+
+        <Button
+            android:id="@+id/btnChooseColorSeq"
+            style="@style/toolbarButtonStyle"
+            android:text="@string/color"
+            android:drawableStart="@drawable/wheel"
+            android:drawableLeft="@drawable/wheel" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:text="@string/SeqTitle"
+        style="@style/seqTextView"/>
+
+    <EditText
+        android:id="@+id/seqNameTextView"
+        style="@style/seqTextEditSec"
+        android:hint="@string/add_sequence_name"
+        android:inputType="text"
+        android:autofillHints="" />
+
+    <TextView
+        android:text="@string/preparation"
+        style="@style/seqTextView"/>
+
+    <EditText
+        android:id="@+id/preparationNum"
+        style="@style/seqTextEditSec"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:text="@string/work"
+        style="@style/seqTextView"/>
+
+    <EditText
+        android:id="@+id/workNum"
+        style="@style/seqTextEditSec"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:text="@string/rest"
+        style="@style/seqTextView"/>
+
+    <EditText
+        android:id="@+id/restNum"
+        style="@style/seqTextEditSec"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:text="@string/cycles_work_and_rest"
+        style="@style/seqTextView"/>
+
+    <EditText
+        android:id="@+id/cyclesNum"
+        style="@style/seqTextEditRepeat"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:text="@string/sets_repeat_all"
+        style="@style/seqTextView"/>
+
+    <EditText
+        android:id="@+id/setsNum"
+        style="@style/seqTextEditRepeat"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:text="@string/rest_between_sets"
+        style="@style/seqTextView"/>
+
+    <EditText
+        android:id="@+id/restBetweenSetsNum"
+        style="@style/seqTextEditSec"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:text="@string/calm"
+        style="@style/seqTextView"/>
+
+    <EditText
+        android:id="@+id/calmNum"
+        style="@style/seqTextEditSec"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+
+    </LinearLayout>
+
+</ScrollView>
