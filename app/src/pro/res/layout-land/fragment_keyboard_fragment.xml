@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".keyboard_fragment">
+
+    <Button android:id="@+id/button1" style="@style/KeyboardButton" android:text="@string/_1"/>
+    <Button android:id="@+id/button2" style="@style/KeyboardButton" android:text="@string/_2"/>
+    <Button android:id="@+id/button3" style="@style/KeyboardButton" android:text="@string/_3"/>
+    <Button android:id="@+id/button4" style="@style/KeyboardButton" android:text="@string/_4"/>
+    <Button android:id="@+id/button5" style="@style/KeyboardButton" android:text="@string/_5"/>
+    <Button android:id="@+id/button6" style="@style/KeyboardButton" android:text="@string/_6"/>
+    <Button android:id="@+id/button7" style="@style/KeyboardButton" android:text="@string/_7"/>
+    <Button android:id="@+id/button8" style="@style/KeyboardButton" android:text="@string/_8"/>
+    <Button android:id="@+id/button9" style="@style/KeyboardButton" android:text="@string/_9"/>
+    <Button android:id="@+id/buttonDot" style="@style/KeyboardButton" android:text="@string/dot"/>
+    <Button android:id="@+id/button0" style="@style/KeyboardButton" android:text="@string/_0"/>
+    <Button android:id="@+id/buttonDel" style="@style/KeyboardButton" android:text="@string/c"/>
+
+</FrameLayout>
