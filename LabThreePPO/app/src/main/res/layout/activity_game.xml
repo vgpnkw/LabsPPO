@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameActivity">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/dice1"
+        android:id="@+id/iv_lives_p1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_height="50dp"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/dice1"
+        android:id="@+id/iv_lives_p2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_height="50dp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="20dp"
+        android:clipToPadding="false"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/dice1"
+            android:id="@+id/iv_dice_p1"
+            android:layout_height="100dp"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:scaleType="centerInside"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/dice6"
+            android:id="@+id/iv_dice_p2"
+            android:layout_height="100dp"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_player1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:text="PLAYER 1 ROLL" />
+
+    <TextView
+        android:id="@+id/tv_player2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+
+        android:text="PLAYER 2 ROLL" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_lives_p1"
+        android:layout_toRightOf="@id/iv_lives_p1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentTop="true"
+
+
+        android:text="LIVES" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_lives_p2"
+        android:layout_toRightOf="@id/iv_lives_p2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentBottom="true"
+
+
+        android:text="LIVES" />
+
+</RelativeLayout>
