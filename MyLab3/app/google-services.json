@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1091718934148",
+    "project_id": "my-lab3-43733",
+    "storage_bucket": "my-lab3-43733.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091718934148:android:2c4d52d46c8dfed9309cd1",
+        "android_client_info": {
+          "package_name": "com.example.mylab3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1091718934148-vq8p3l2hr98a00ep1d5iab6e988jfjli.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlkDkGUxrTLi8UxKI0EQhg9pucArstl_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1091718934148-vq8p3l2hr98a00ep1d5iab6e988jfjli.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="true"
+            android:text="Email"
+            android:layout_width="fill_parent"
+            android:layout_gravity="fill_horizontal"
+            android:gravity="fill_horizontal">
+        </TextView>
+    <EditText
+            android:layout_height="wrap_content"
+            android:id="@+id/email"
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:layout_width="fill_parent"
+            android:layout_gravity="fill_horizontal"
+            android:gravity="fill_horizontal">
+        </EditText>
+        <TextView
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="true"
+            android:text="Password"
+            android:layout_width="fill_parent"
+            android:layout_gravity="fill_horizontal"
+            android:gravity="fill_horizontal">
+        </TextView>
+        <EditText
+            android:layout_height="wrap_content"
+            android:id="@+id/password"
+            android:selectAllOnFocus="true"
+            android:inputType="textPassword"
+            android:layout_width="fill_parent"
+            android:layout_gravity="fill_horizontal"
+            android:gravity="fill_horizontal">
+        </EditText>
+        <Button
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Have not profile?"
+            android:id="@+id/to_sign_up"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white">
+        </Button>
+</LinearLayout>
+    <Button
+        android:id="@+id/btn_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:text="SIGN IN"
+        android:textSize="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
