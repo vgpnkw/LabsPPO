@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,15 +25,17 @@ import java.util.ArrayList;
 public class GameViewModel extends ViewModel {
     FirebaseDatabase db = FirebaseDatabase.getInstance("https://my-lab3-43733-default-rtdb.firebaseio.com/");;
     DatabaseReference reference = db.getReference("games");
-    private final int[][] shots = new int[10][10];
-    private final int[][] shotsOpponent = new int[10][10];
+    
+    private final MutableLiveData<int[][]> shots = new MutableLiveData<new int[10][10]>();
+    private final MutableLiveData<int[][]> shotsOpponent = new MutableLiveData<new int[10][10]>();
     ArrayList<String> ships = new ArrayList<>();
     Ships selectShip;
     int sizeShip;
     boolean iGo = false;
     boolean isBattle = false;
-    private final Boolean[][] myShips = new Boolean[10][10];
-    private final Boolean[][] opponentShips = new Boolean[10][10];
+    private final MutableLiveData<Boolean[][]> myShips = new MutableLiveData<new Boolean[10][10]>();
+    private final MutableLiveData<Boolean[][]> opponentShips = new MutableLiveData<new Boolean[10][10]>();
+    
 
     public void setCell(Button cell, int i, int j, String buttonID){
         cell.setBackgroundColor(Color.BLUE);
