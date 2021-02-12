@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/timerListViewItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/timerName"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minHeight="70dp"
+            android:textSize="18sp"
+            tools:text="Name" />
+
+        <TextView
+            android:id="@+id/timerDescription"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:minHeight="70dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="Description"></TextView>
+
+        <TextView
+            android:id="@+id/timerCreatedDate"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:minHeight="70dp"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            tools:text="created Date"></TextView>
+
+    </LinearLayout>
+
+</LinearLayout>
