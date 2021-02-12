@@ -36,7 +36,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
     TextView opponentName;
     TextView id;
     ImageView opponentImage;
-    int small = 3, medium = 2, huge = 1;
+    Ships selectShip;
     int sizeShip;
     boolean iGo = false;
     boolean isBattle = false;
@@ -80,7 +80,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
         btnSmall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sizeShip = 2;
+                selectShip = Ships.LITTLE;
             }
         });
 
@@ -88,7 +88,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
         btnMedium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sizeShip = 3;
+                selectShip = Ships.MEDIUM;
             }
         });
 
@@ -96,7 +96,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
         btnHuge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sizeShip = 4;
+                selectShip = Ships.BIG;
             }
         });
 
@@ -129,15 +129,16 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(!isBattle)
         {
-            if (sizeShip == 0) {
+            if (selectShip == Ships.NULL) {
                 return;
-            } else if(sizeShip == 2) {
-                fillField(((Button) v).getText().toString());
-            } else if(sizeShip == 3) {
-                fillField(((Button) v).getText().toString());
+            } else if(selectShip == Ships.LITTLE) {
+                sizeShip = Ships.LITTLE.getSize();
+            } else if(selectShip == Ships.MEDIUM) {
+                sizeShip = Ships.MEDIUM.getSize();
             } else {
-                fillField(((Button) v).getText().toString());
+                sizeShip = Ships.BIG.getSize();
             }
+            fillField(((Button) v).getText().toString());
             checkShips();
         }else if(iGo){
             checkShot(((Button) v).getText().toString());
@@ -205,10 +206,10 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
     }
 
     public void checkShips(){
-        btnHuge.setEnabled(huge != 0);
-        btnMedium.setEnabled(medium != 0);
-        btnSmall.setEnabled(small != 0);
-        btnMain.setEnabled(small == 0 && medium == 0 && huge == 0);
+        btnHuge.setEnabled(Ships.BIG.getCount() != 0);
+        btnMedium.setEnabled(Ships.MEDIUM.getCount() != 0);
+        btnSmall.setEnabled(Ships.LITTLE.getCount() != 0);
+        btnMain.setEnabled(Ships.BIG.getCount() == 0 && Ships.MEDIUM.getCount() == 0 && Ships.LITTLE.getCount() == 0);
         sizeShip = 0;
     }
 
@@ -225,11 +226,11 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
         }
         if(sizeShip == 4)
         {
-            huge--;
+            Ships.BIG.countMinus();
         }else if (sizeShip == 3){
-            medium--;
+            Ships.MEDIUM.countMinus();
         }else {
-            small--;
+            Ships.LITTLE.countMinus();
         }
         for (int i=0; i<sizeShip; i++){
             myShips[Y][X+i] = true;
