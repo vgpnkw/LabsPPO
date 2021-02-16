@@ -38,12 +38,12 @@ public class SettingsActivity extends PreferenceActivity {
         }
 
         String font = sharedPreferences.getString(Setting.FONTSIZE_SETTINGS.getSetting(), FontSizeSetting.SMALL.getFontSize()[0]);
-        String listValue = sharedPreferences.getString(Setting.LANG_SETTINGS.getSetting(), LanguageSetting.ENGLISH_rus.getLanguage());
+        String listValue = sharedPreferences.getString(Setting.LANG_SETTINGS.getSetting(), LanguageSetting.EN.getLanguage());
         Locale locale;
         assert listValue != null;
 
 
-        if (! listValue.toLowerCase().equals(LanguageSetting.ENGLISH_rus.getLanguage()) || listValue.toLowerCase().equals(LanguageSetting.ENGLISH_en.getLanguage()) ) {
+        if (! listValue.equals(LanguageSetting.EN.getLanguage()) {
             font_def = 0;
             locale = new Locale(LanguageSetting.RUS.getLanguage());
         } else {
@@ -78,7 +78,7 @@ public class SettingsActivity extends PreferenceActivity {
 
         private boolean onLanguageChange(Preference preference, Object newValue) {
             Locale locale;
-            if (newValue.toString().toLowerCase().equals(LanguageSetting.ENGLISH_en.getLanguage()) || newValue.toString().toLowerCase().equals(LanguageSetting.ENGLISH_rus.getLanguage())) {
+            if (newValue.toString().equals(LanguageSetting.EN.getLanguage())) {
                 locale = new Locale(LanguageSetting.EN.getLanguage());
             } else {
                 locale = new Locale(LanguageSetting.RUS.getLanguage());
