@@ -18,7 +18,7 @@
         android:defaultValue="1"
         android:dialogTitle="@string/Selectalanguage"
         android:entries="@array/languages"
-        android:entryValues="@array/languages"
+        android:entryValues="@array/languages_val"
         android:key="test_lang"
         android:summary="@string/Languageintheapp"
         android:title="@string/lang" />
