@@ -25,22 +25,21 @@ import java.util.ArrayList;
 public class GameViewModel extends ViewModel {
     FirebaseDatabase db = FirebaseDatabase.getInstance("https://my-lab3-43733-default-rtdb.firebaseio.com/");;
     DatabaseReference reference = db.getReference("games");
-    
+
     private final MutableLiveData<int[][]> shots = new MutableLiveData<new int[10][10]>();
     private final MutableLiveData<int[][]> shotsOpponent = new MutableLiveData<new int[10][10]>();
     ArrayList<String> ships = new ArrayList<>();
     Ships selectShip;
     int sizeShip;
+    boolean shipopponent;
     boolean iGo = false;
     boolean isBattle = false;
     private final MutableLiveData<Boolean[][]> myShips = new MutableLiveData<new Boolean[10][10]>();
     private final MutableLiveData<Boolean[][]> opponentShips = new MutableLiveData<new Boolean[10][10]>();
-    
+    int [] temp = new int[2];
 
-    public void setCell(Button cell, int i, int j, String buttonID){
-        cell.setBackgroundColor(Color.BLUE);
-        cell.setText(buttonID);
-        cell.setTextColor(Color.BLUE);
+
+    public void setCell(int i, int j, String buttonID){
         myShips[i][j] = false;
         opponentShips[i][j] = false;
         shots[i][j] = 0;
@@ -57,71 +56,66 @@ public class GameViewModel extends ViewModel {
         selectShip = ship;
     }
 
-    public  void clickField(View v, Button[][] field, Button btnMain, Button btnHuge, Button btnSmall, Button btnMedium){
-        if(!isBattle)
-        {
-            if (selectShip == Ships.NULL) {
-                return;
-            } else if(selectShip == Ships.LITTLE) {
-                sizeShip = Ships.LITTLE.getSize();
-            } else if(selectShip == Ships.MEDIUM) {
-                sizeShip = Ships.MEDIUM.getSize();
-            } else {
-                sizeShip = Ships.BIG.getSize();
-            }
-            fillField(((Button) v).getText().toString(), field);
-            checkShips(btnHuge, btnSmall,  btnMedium, btnMain);
-        }else if(iGo){
-            checkShot(((Button) v).getText().toString(), field,  btnMain);
+    public void getCount()
+    {
+        if (selectShip == Ships.NULL) {
+            return;
+        } else if(selectShip == Ships.LITTLE) {
+            sizeShip = Ships.LITTLE.getSize();
+        } else if(selectShip == Ships.MEDIUM) {
+            sizeShip = Ships.MEDIUM.getSize();
+        } else {
+            sizeShip = Ships.BIG.getSize();
         }
     }
 
-    public  void changeTurn(Button btnMain, Button[][] field){
-        String info = "Wait opponent";
-        btnMain.setText(info);
-        GameStructure.Action = "ready";
-        reference.child(GameStructure.Id).child(GameStructure.Role).child("action").setValue(GameStructure.Action);
-        if(GameStructure.opponentAction.equals("ready")){
-            isBattle = true;
-            drawShips(btnMain, field);
-        }
-    }
-
-    public void checkShot(String shot, Button[][] field, Button btnMain){
+    public int [] refactorString(String shot)
+    {
         String subStr = shot.substring(7, 9);
         char c = subStr.charAt(0);
         int Y = Character.getNumericValue(c);
+        temp[0] = Y;
         c = subStr.charAt(1);
         int X = Character.getNumericValue(c);
+        temp[1] = X;
+        return temp;
+    }
+
+
+    public int [] getcheckShot(String shot){
+        temp = refactorString(shot);
+        int Y = temp[0];
+        int X = temp[1];
         if(shots[Y][X] != 0) {
             return;
         }
         if(opponentShips[Y][X])
         {
-            field[Y][X].setBackgroundColor(Color.YELLOW);
-            field[Y][X].setTextColor(Color.YELLOW);
             opponentShips[Y][X] = false;
-            ships.remove(subStr);
+            opponentShips = true;
+            ships.remove(shot.substring(7, 9));
             shots[Y][X] = 2;
         }else {
-            field[Y][X].setBackgroundColor(Color.WHITE);
-            field[Y][X].setTextColor(Color.WHITE);
             shots[Y][X] = 1;
         }
         reference.child(GameStructure.Id).child(GameStructure.Role).child("action").setValue(shot);
-        iGo = false;
-        drawShips(btnMain, field);
-        Victoty(btnMain);
+        return temp;
     }
 
-    public void Victoty(Button btnMain){
+    public boolean isShip()
+    {
+        return opponentShips;
+    }
+
+    public boolean emptyShip()
+    {
+        return ships.isEmpty();
+    }
+
+    public void Victoty(){
         if(ships.isEmpty()){
-            btnMain.setText("You won!");
-            btnMain.setEnabled(true);
             reference.child(GameStructure.Id).child(GameStructure.Role).child("action").setValue("won");
             reference = db.getReference("users");
-
-
             Query checkUser = reference.orderByChild("name").equalTo(GameStructure.myName);
             checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -147,20 +141,10 @@ public class GameViewModel extends ViewModel {
         }
     }
 
-    public void checkShips(Button btnHuge, Button btnSmall, Button btnMedium, Button btnMain){
-        btnHuge.setEnabled(Ships.BIG.getCount() != 0);
-        btnMedium.setEnabled(Ships.MEDIUM.getCount() != 0);
-        btnSmall.setEnabled(Ships.LITTLE.getCount() != 0);
-        btnMain.setEnabled(Ships.BIG.getCount() == 0 && Ships.MEDIUM.getCount() == 0 && Ships.LITTLE.getCount() == 0);
-        sizeShip = 0;
-    }
-
-    public void fillField(String buttonName, Button[][] field){
-        String subStr = buttonName.substring(7, 9);
-        char c = subStr.charAt(0);
-        int Y = Character.getNumericValue(c);
-        c = subStr.charAt(1);
-        int X = Character.getNumericValue(c);
+    public int [] getfillField(String buttonName){
+        temp = refactorString(buttonName);
+        int Y = temp[0];
+        int X = temp[1];
         for (int i=0; i<sizeShip; i++){
             if (myShips[Y][X] != myShips[Y][X + i]  || X+sizeShip>10) {
                 return;
@@ -174,68 +158,11 @@ public class GameViewModel extends ViewModel {
         }else {
             Ships.LITTLE.countMinus();
         }
-        for (int i=0; i<sizeShip; i++){
-            myShips[Y][X+i] = true;
-            field[Y][X+i].setBackgroundColor(Color.BLACK);
-            field[Y][X+i].setTextColor(Color.BLACK);
-            String yx = String.valueOf(Y) + String.valueOf(X+i);
-            reference.child(GameStructure.Id).child(GameStructure.Role).child("ships").child(yx).setValue("a");
-        }
-        sizeShip=0;
+
+        return temp;
     }
 
-    public void fillOpponent(TextView opponentName, ImageView opponentImage){
-        if(!GameStructure.opponentName.equals("")){
-            opponentName.setText(GameStructure.opponentName);
-            if(GameStructure.opponentImage != null)
-            {
-                Picasso.get().load(Uri.parse(GameStructure.opponentImage)).into(opponentImage);
-            }
-        }
-    }
 
-    public void OpponentEventListener(Button btnMain, Button[][] field, TextView opponentName, ImageView opponentImage) {
-        DatabaseReference checkRef = db.getReference("games/" + GameStructure.Id + "/" + GameStructure.OpponentRole );
-        checkRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                opponentData();
-                GameStructure.opponentAction = snapshot.child("action").getValue(String.class);
-                GameStructure.opponentName = snapshot.child("name").getValue(String.class);
-                GameStructure.opponentImage = snapshot.child("image").getValue(String.class);
-                if(GameStructure.opponentAction.equals("notReady")){
-                    fillOpponent(opponentName, opponentImage);
-                }else if(GameStructure.opponentAction.equals("won")){
-                    btnMain.setEnabled(true);
-                    btnMain.setText("You lost...");
-                }else if(GameStructure.opponentAction.equals("ready")){
-                    if(GameStructure.Action.equals("ready")){
-                        drawShips(btnMain, field);
-                        isBattle = true;
-                    }
-                }else if(GameStructure.opponentAction.contains("button")){
-                    String substr = GameStructure.opponentAction.substring(7, 9);
-                    char c = substr.charAt(0);
-                    int Y = Character.getNumericValue(c);
-                    c = substr.charAt(1);
-                    int X = Character.getNumericValue(c);
-
-                    if(myShips[Y][X])
-                    {
-                        shotsOpponent[Y][X] = 2;
-                    }else {
-                        shotsOpponent[Y][X] = 1;
-                    }
-                    iGo = true;
-                    drawShips(btnMain, field);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     public void opponentData() {
         DatabaseReference ref = db.getReference("games").child(GameStructure.Id).child(GameStructure.OpponentRole).child("ships");
@@ -246,7 +173,6 @@ public class GameViewModel extends ViewModel {
                     fillData(postSnapshot.getKey());
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -263,46 +189,4 @@ public class GameViewModel extends ViewModel {
         ships.add(data);
     }
 
-    public void drawShips(Button btnMain, Button[][] field){
-        if(!iGo){
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    if(myShips[i][j])
-                    {
-                        field[i][j].setBackgroundColor(Color.BLACK);
-                        field[i][j].setTextColor(Color.BLACK);
-                    }else {
-                        if(shotsOpponent[i][j] == 0) {
-                            field[i][j].setBackgroundColor(Color.BLUE);
-                            field[i][j].setTextColor(Color.BLUE);
-                        }
-                    }
-                    if(shotsOpponent[i][j] == 1) {
-                        field[i][j].setBackgroundColor(Color.WHITE);
-                        field[i][j].setTextColor(Color.WHITE);
-                    }else  if (shotsOpponent[i][j] == 2) {
-                        field[i][j].setBackgroundColor(Color.YELLOW);
-                        field[i][j].setTextColor(Color.YELLOW);
-                    }
-                }
-            }
-            btnMain.setText("Opponent's turn");
-        }else {
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    if(shots[i][j] == 0) {
-                        field[i][j].setBackgroundColor(Color.BLUE);
-                        field[i][j].setTextColor(Color.BLUE);
-                    }     else    if(shots[i][j] == 1) {
-                        field[i][j].setBackgroundColor(Color.WHITE);
-                        field[i][j].setTextColor(Color.WHITE);
-                    }else if (shots[i][j] == 2) {
-                        field[i][j].setBackgroundColor(Color.YELLOW);
-                        field[i][j].setTextColor(Color.YELLOW);
-                    }
-                }
-            }
-            btnMain.setText("Your turn");
-        }
-    }
 }
