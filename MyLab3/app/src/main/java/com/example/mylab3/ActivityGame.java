@@ -21,6 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.timgroup.jgravatar.Gravatar;
+import com.timgroup.jgravatar.GravatarDefaultImage;
+import com.timgroup.jgravatar.GravatarRating;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -175,7 +178,16 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
     public void fillOpponent(TextView opponentName, ImageView opponentImage){
         if(!GameStructure.opponentName.equals("")){
             opponentName.setText(GameStructure.opponentName);
-            if(GameStructure.opponentImage != null)
+            Gravatar gravatar = new Gravatar();
+            gravatar.setSize(50);
+            gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
+            gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
+            String url = gravatar.getUrl(GameStructure.opponentEmail);
+            url = new StringBuffer(url).insert(4, "s").toString();
+            if(User.ImageType.equals("gravatar")){
+                Picasso.get().load(url).into(enemyImage);
+            }
+            else if(GameStructure.opponentImage != null)
             {
                 Picasso.get().load(Uri.parse(GameStructure.opponentImage)).into(opponentImage);
             }
