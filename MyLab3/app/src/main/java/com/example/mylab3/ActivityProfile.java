@@ -1,4 +1,4 @@
-package com.example.mylab3;
+package com.example.seabattle;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -25,12 +25,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.timgroup.jgravatar.Gravatar;
+import com.timgroup.jgravatar.GravatarDefaultImage;
+import com.timgroup.jgravatar.GravatarRating;
 
 public class ActivityProfile extends AppCompatActivity {
 
     EditText editUsername;
     TextView lblMail, lblWins, lblGames;
-    Button btnImage, btnName, btnSave;
+    Button btnImage, btnName, btnSave, btnGravatar;
     ImageView imgUser;
     FirebaseDatabase rootNode = FirebaseDatabase.getInstance("https://sea-battle-43733-default-rtdb.firebaseio.com/");;
     DatabaseReference reference = rootNode.getReference("users");
@@ -51,6 +54,7 @@ public class ActivityProfile extends AppCompatActivity {
         lblWins = findViewById(R.id.txt_wins);
         lblGames = findViewById(R.id.txt_games);
         btnImage = findViewById(R.id.btn_image);
+        btnGravatar = findViewById(R.id.btn_gravatar);
         btnName = findViewById(R.id.btn_name);
         imgUser = findViewById(R.id.img_user);
         btnSave = findViewById(R.id.btn_save_all);
@@ -67,7 +71,22 @@ public class ActivityProfile extends AppCompatActivity {
 
         Picasso.get().load(Uri.parse(GameStructure.myImage)).into(imgUser);
 
-
+        if(GameStructure.myImageType.equals("default")){
+            btnImage.setEnabled(false);
+            btnGravatar.setEnabled(true);
+        }
+        if(GameStructure.myImageType.equals("gravatar")){
+            btnGravatar.setEnabled(false);
+            btnImage.setEnabled(true);
+        }
+        Gravatar gravatar = new Gravatar();
+        gravatar.setSize(50);
+        gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
+        gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
+        String url = gravatar.getUrl(GameStructure.myEmail);
+        url = new StringBuffer(url).insert(4, "s").toString();
+        Picasso.get().load(url).into(imgUser);
+        Picasso.get().load(GameStructure.myImage).into(imgUser);
 
         btnName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +120,21 @@ public class ActivityProfile extends AppCompatActivity {
                 uploadFile();
                 Intent intent = new Intent(getApplicationContext(), ActivityListRoom.class);
                 startActivity(intent);
+            }
+        });
+
+        btnGravatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Gravatar gravatar = new Gravatar();
+                gravatar.setSize(50);
+                gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
+                gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
+                String url = gravatar.getUrl(GameStructure.myEmail);
+                url = new StringBuffer(url).insert(4, "s").toString();
+                Picasso.get().load(url).into(imgUser);
+                GameStructure.myImageType = "default";
+                reference.child(GameStructure.myName).child("image").setValue(GameStructure.myImage );
             }
         });
     }
@@ -141,6 +175,7 @@ public class ActivityProfile extends AppCompatActivity {
                             while(!uri.isComplete());
                             Uri url = uri.getResult();
 
+                            GameStructure.myImageType = "default";
                             GameStructure.myImage = url.toString();
                             reference.child(GameStructure.myName).child("image").setValue(GameStructure.myImage );
                             Picasso.get().load(selectedUri).into(imgUser);
@@ -157,3 +192,4 @@ public class ActivityProfile extends AppCompatActivity {
         }
     }
 }
+
