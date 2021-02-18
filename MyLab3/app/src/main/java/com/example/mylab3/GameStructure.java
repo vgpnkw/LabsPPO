@@ -18,6 +18,7 @@ public class GameStructure {
     public static String opponentImage;
     public static String myImageType;
     public static String opponentImageType;
+    public static String opponentEmail;
 
 
     GameStructure() {
