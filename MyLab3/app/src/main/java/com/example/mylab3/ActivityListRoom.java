@@ -1,4 +1,4 @@
-package com.example.seabattle;
+package com.example.mylab3;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -86,6 +86,7 @@ public class ActivityListRoom extends AppCompatActivity {
                             GameStructure.OpponentRole = "creator";
                             GameStructure.Action = "notReady";
                             GameStructure.opponentName = dataSnapshot.child(input).child("creator").child("name").getValue(String.class);
+                            GameStructure.opponentEmail = dataSnapshot.child(input).child("creator").child("email").getValue(String.class);
                             GameStructure.opponentImage = dataSnapshot.child(input).child("creator").child("image").getValue(String.class);
                             GameStructure.opponentImageType = dataSnapshot.child(input).child("creator").child("imageType").getValue(String.class);
                             GameStructure.Id = dataSnapshot.child(input).child("id").getValue(String.class);
