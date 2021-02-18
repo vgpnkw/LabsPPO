@@ -28,15 +28,15 @@ public class GameViewModel extends ViewModel {
 
     private final MutableLiveData<int[][]> shots = new MutableLiveData<new int[10][10]>();
     private final MutableLiveData<int[][]> shotsOpponent = new MutableLiveData<new int[10][10]>();
-    ArrayList<String> ships = new ArrayList<>();
+    private ArrayList<String> ships = new ArrayList<>();
+    private List<Integer> coordinates = new ArrayList<Integer>();
     Ships selectShip;
     int sizeShip;
     boolean shipopponent;
-    boolean iGo = false;
-    boolean isBattle = false;
+    private boolean iGo = false;
+    private boolean isBattle = false;
     private final MutableLiveData<Boolean[][]> myShips = new MutableLiveData<new Boolean[10][10]>();
     private final MutableLiveData<Boolean[][]> opponentShips = new MutableLiveData<new Boolean[10][10]>();
-    int [] temp = new int[2];
 
 
     public void setCell(int i, int j, String buttonID){
@@ -69,23 +69,23 @@ public class GameViewModel extends ViewModel {
         }
     }
 
-    public int [] refactorString(String shot)
+    public void refactorString(String shot)
     {
+        coordinates.clear();
         String subStr = shot.substring(7, 9);
         char c = subStr.charAt(0);
         int Y = Character.getNumericValue(c);
-        temp[0] = Y;
+        coordinates.add(Y);
         c = subStr.charAt(1);
         int X = Character.getNumericValue(c);
-        temp[1] = X;
-        return temp;
+        coordinates.add(X);
     }
 
 
     public int [] getcheckShot(String shot){
-        temp = refactorString(shot);
-        int Y = temp[0];
-        int X = temp[1];
+        refactorString(shot);
+        int Y = coordinates.get(0);
+        int X = coordinates.get(1);;
         if(shots[Y][X] != 0) {
             return;
         }
@@ -141,10 +141,18 @@ public class GameViewModel extends ViewModel {
         }
     }
 
-    public int [] getfillField(String buttonName){
-        temp = refactorString(buttonName);
-        int Y = temp[0];
-        int X = temp[1];
+    public void checkShips(Button btnHuge, Button btnSmall, Button btnMedium, Button btnMain){
+        btnHuge.setEnabled(Ships.BIG.getCount() != 0);
+        btnMedium.setEnabled(Ships.MEDIUM.getCount() != 0);
+        btnSmall.setEnabled(Ships.LITTLE.getCount() != 0);
+        btnMain.setEnabled(Ships.BIG.getCount() == 0 && Ships.MEDIUM.getCount() == 0 && Ships.LITTLE.getCount() == 0);
+        sizeShip = 0;
+    }
+
+    public void getfillField(String buttonName){
+        refactorString(buttonName);
+        int Y = coordinates.get(0);
+        int X = coordinates.get(1);
         for (int i=0; i<sizeShip; i++){
             if (myShips[Y][X] != myShips[Y][X + i]  || X+sizeShip>10) {
                 return;
@@ -159,7 +167,7 @@ public class GameViewModel extends ViewModel {
             Ships.LITTLE.countMinus();
         }
 
-        return temp;
+        //return temp;
     }
 
 
@@ -189,4 +197,23 @@ public class GameViewModel extends ViewModel {
         ships.add(data);
     }
 
+    public void setBattle(boolean battle) {
+        isBattle = battle;
+    }
+
+    public void setiGo(boolean iGo) {
+        this.iGo = iGo;
+    }
+
+    public boolean isiGo() {
+        return iGo;
+    }
+
+    public boolean isBattle() {
+        return isBattle;
+    }
+
+    public List<Integer> getCoordinates() {
+        return coordinates;
+    }
 }
