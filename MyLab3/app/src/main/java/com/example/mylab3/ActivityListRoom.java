@@ -1,4 +1,4 @@
-package com.example.mylab3;
+package com.example.seabattle;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,6 +65,7 @@ public class ActivityListRoom extends AppCompatActivity {
                 reference.child(GameStructure.Id).child(GameStructure.Role).child("action").setValue(GameStructure.Action);
                 reference.child(GameStructure.Id).child(GameStructure.Role).child("image").setValue(GameStructure.myImage);
                 reference.child(GameStructure.Id).child(GameStructure.OpponentRole).child("action").setValue("a");
+                reference.child(GameStructure.Id).child(GameStructure.Role).child("imageType").setValue(GameStructure.myImageType);
                 Intent intent = new Intent(getApplicationContext(), ActivityGame.class);
                 startActivity(intent);
             }
@@ -86,8 +87,10 @@ public class ActivityListRoom extends AppCompatActivity {
                             GameStructure.Action = "notReady";
                             GameStructure.opponentName = dataSnapshot.child(input).child("creator").child("name").getValue(String.class);
                             GameStructure.opponentImage = dataSnapshot.child(input).child("creator").child("image").getValue(String.class);
+                            GameStructure.opponentImageType = dataSnapshot.child(input).child("creator").child("imageType").getValue(String.class);
                             GameStructure.Id = dataSnapshot.child(input).child("id").getValue(String.class);
                             reference.child(input).child(GameStructure.Role).child("image").setValue(GameStructure.myImage);
+                            reference.child(input).child(GameStructure.Role).child("imageType").setValue(GameStructure.myImageType);
                             reference.child(input).child(GameStructure.Role).child("name").setValue(GameStructure.myName);
                             reference.child(input).child(GameStructure.Role).child("action").setValue(GameStructure.Action);
                             Intent intent = new Intent(getApplicationContext(), ActivityGame.class);
@@ -109,3 +112,4 @@ public class ActivityListRoom extends AppCompatActivity {
     }
 
 }
+
