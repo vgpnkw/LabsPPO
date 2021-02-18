@@ -22,7 +22,7 @@ public class ActivityListRoom extends AppCompatActivity {
 
     Button btnSignOut, btnProfile, btnCreate, btnFind;
     EditText txtKey;
-    FirebaseDatabase db = FirebaseDatabase.getInstance("https://sea-battle-43733-default-rtdb.firebaseio.com/");;
+    FirebaseDatabase db = FirebaseDatabase.getInstance("https://my-lab3-43733-default-rtdb.firebaseio.com/");;
     DatabaseReference reference;
 
     @Override
@@ -65,6 +65,7 @@ public class ActivityListRoom extends AppCompatActivity {
                 reference.child(GameStructure.Id).child(GameStructure.Role).child("action").setValue(GameStructure.Action);
                 reference.child(GameStructure.Id).child(GameStructure.Role).child("image").setValue(GameStructure.myImage);
                 reference.child(GameStructure.Id).child(GameStructure.OpponentRole).child("action").setValue("a");
+                reference.child(GameStructure.Id).child(GameStructure.Role).child("imageType").setValue(GameStructure.myImageType);
                 Intent intent = new Intent(getApplicationContext(), ActivityGame.class);
                 startActivity(intent);
             }
@@ -85,9 +86,12 @@ public class ActivityListRoom extends AppCompatActivity {
                             GameStructure.OpponentRole = "creator";
                             GameStructure.Action = "notReady";
                             GameStructure.opponentName = dataSnapshot.child(input).child("creator").child("name").getValue(String.class);
+                            GameStructure.opponentEmail = dataSnapshot.child(input).child("creator").child("email").getValue(String.class);
                             GameStructure.opponentImage = dataSnapshot.child(input).child("creator").child("image").getValue(String.class);
+                            GameStructure.opponentImageType = dataSnapshot.child(input).child("creator").child("imageType").getValue(String.class);
                             GameStructure.Id = dataSnapshot.child(input).child("id").getValue(String.class);
                             reference.child(input).child(GameStructure.Role).child("image").setValue(GameStructure.myImage);
+                            reference.child(input).child(GameStructure.Role).child("imageType").setValue(GameStructure.myImageType);
                             reference.child(input).child(GameStructure.Role).child("name").setValue(GameStructure.myName);
                             reference.child(input).child(GameStructure.Role).child("action").setValue(GameStructure.Action);
                             Intent intent = new Intent(getApplicationContext(), ActivityGame.class);

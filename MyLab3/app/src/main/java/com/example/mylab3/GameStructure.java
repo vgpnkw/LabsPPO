@@ -16,6 +16,9 @@ public class GameStructure {
     public static String Action;
     public static String opponentAction;
     public static String opponentImage;
+    public static String myImageType;
+    public static String opponentImageType;
+    public static String opponentEmail;
 
 
     GameStructure() {
@@ -29,6 +32,7 @@ public class GameStructure {
         myImage = image;
         myWins = wins;
         myGames = games;
+        myImageType = "";
     }
 
     public static void newId(){
