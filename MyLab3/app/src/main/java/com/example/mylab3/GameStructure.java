@@ -1,4 +1,4 @@
-package com.example.mylab3;
+package com.example.seabattle;
 
 import java.util.UUID;
 
@@ -16,6 +16,8 @@ public class GameStructure {
     public static String Action;
     public static String opponentAction;
     public static String opponentImage;
+    public static String myImageType;
+    public static String opponentImageType;
 
 
     GameStructure() {
@@ -29,9 +31,11 @@ public class GameStructure {
         myImage = image;
         myWins = wins;
         myGames = games;
+        myImageType = "";
     }
 
     public static void newId(){
 
     }
 }
+
