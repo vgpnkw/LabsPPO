@@ -31,8 +31,6 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
     TextView opponentName;
     TextView id;
     ImageView opponentImage;
-    boolean iGo = false;
-    boolean isBattle = false;
 
     private final Button[][] field = new Button[10][10];
 
@@ -95,7 +93,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 if (GameStructure.Action.equals("notReady")) {
-                    gViewModel.changeTurn(btnMain, field);
+                    changeTurn(btnMain, field);
                 }
                 else {
                     Intent intent = new Intent(getApplicationContext(), ActivityListRoom.class);
@@ -108,12 +106,12 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
     }
 
     public  void clickField(View v, Button[][] field, Button btnMain, Button btnHuge, Button btnSmall, Button btnMedium){
-        if(!isBattle)
+        if(!gViewModel.isBattle())
         {
             gViewModel.getCount();
             fillField(((Button) v).getText().toString(), field);
             checkShips(btnHuge, btnSmall,  btnMedium, btnMain);
-        }else if(iGo){
+        }else if(gViewModel.isiGo()){
             checkShot(((Button) v).getText().toString(), field,  btnMain);
         }
     }
@@ -124,16 +122,15 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
         GameStructure.Action = "ready";
         reference.child(GameStructure.Id).child(GameStructure.Role).child("action").setValue(GameStructure.Action);
         if(GameStructure.opponentAction.equals("ready")){
-            isBattle = true;
+            gViewModel.setBattle(true);
             drawShips(btnMain, field);
         }
     }
 
     public void checkShot(String shot, Button[][] field, Button btnMain){
-        int temp [] = new int[2];
-        temp = gViewModel.getcheckShot(shot);
-        int Y = temp[0];
-        int X = temp[1];
+        gViewModel.getcheckShot(shot);
+        int Y = gViewModel.getCoordinates().get(0);
+        int X = gViewModel.getCoordinates().get(1);
         if(gViewModel.isShip())
         {
             field[Y][X].setBackgroundColor(Color.YELLOW);
@@ -142,7 +139,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
             field[Y][X].setBackgroundColor(Color.WHITE);
             field[Y][X].setTextColor(Color.WHITE);
         }
-        iGo = false;
+        gViewModel.setiGo(false);
         drawShips(btnMain, field);
         if(gViewModel.emptyShip())
         {
@@ -162,10 +159,9 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
 
     public void fillField(String ButtonName, Button[][] field)
     {
-        int [] temp = new int [2];
-        temp = gViewModel.getfillField(ButtonName);
-        int Y = temp[0];
-        int X = temp[1];
+        gViewModel.getfillField(ButtonName);
+        int Y = gViewModel.getCoordinates().get(0);
+        int X = gViewModel.getCoordinates().get(1);
         for (int i=0; i<gViewModel.sizeShip; i++){
             myShips[Y][X+i] = true;
             field[Y][X+i].setBackgroundColor(Color.BLACK);
@@ -203,7 +199,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
                 }else if(GameStructure.opponentAction.equals("ready")){
                     if(GameStructure.Action.equals("ready")){
                         drawShips(btnMain, field);
-                        isBattle = true;
+                        gViewModel.setBattle(true);
                     }
                 }else if(GameStructure.opponentAction.contains("button")){
                     String substr = GameStructure.opponentAction.substring(7, 9);
@@ -218,7 +214,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
                     }else {
                         shotsOpponent[Y][X] = 1;
                     }
-                    iGo = true;
+                    gViewModel.setiGo(true);
                     drawShips(btnMain, field);
                 }
             }
@@ -230,7 +226,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
     }
 
     public void drawShips(Button btnMain, Button[][] field){
-        if(!iGo){
+        if(!gViewModel.isiGo()){
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     if(myShips[i][j])
@@ -274,7 +270,7 @@ public class ActivityGame extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        gViewModel.clickField(v, field,  btnMain, btnHuge, btnSmall,  btnMedium);
+        clickField(v, field,  btnMain, btnHuge, btnSmall,  btnMedium);
     }
 
 }
